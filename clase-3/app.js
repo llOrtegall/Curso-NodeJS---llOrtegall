@@ -1,6 +1,6 @@
 const express = require('express')
 const movies = require('./movies.json')
-const crypto = require('./movies.json')
+const crypto = require('crypto')
 
 const app = express()
 app.disable('x-powered-by')
@@ -19,7 +19,6 @@ app.get('/movies', (req, res) => {
 
 app.post('/movies', (req, res) => {
   const { title, genre, year, director, duration, rate, poster } = req.body
-
   const newMovie = {
     id: crypto.randomUUID(),
     title,
@@ -30,10 +29,8 @@ app.post('/movies', (req, res) => {
     rate: rate ?? 0,
     poster
   }
-
   movies.push(newMovie)
-
-  res.status(201)
+  res.status(201).json(newMovie)
 })
 
 app.get('/movies/:id', (req, res) => {

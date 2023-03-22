@@ -10,6 +10,7 @@ GET http://localhost:1234/movies?genre=Action
 ### Crear una película por POST
 POST http://localhost:1234/movies
 Content-Type: application/json
+
 {
   "title": "Pelicula de prueba",
   "year": 1977,
