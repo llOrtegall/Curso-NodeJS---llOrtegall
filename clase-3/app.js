@@ -3,7 +3,6 @@ const movies = require('./movies.json')
 const crypto = require('crypto')
 const { validateMovie } = require('./schemas/movies')
 
-
 const app = express()
 app.disable('x-powered-by')
 app.use(express.json())
@@ -23,7 +22,7 @@ app.post('/movies', (req, res) => {
   const result = validateMovie(req.body)
 
   if (result.error) {
-    return res.status(400).json({ error: result.error.message })
+    return res.status(400).json({ error: JSON.parse(result.error.message) })
   }
 
   const newMovie = {

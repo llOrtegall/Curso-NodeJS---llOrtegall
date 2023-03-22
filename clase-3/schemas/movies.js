@@ -7,10 +7,10 @@ const movieSchema = z.object({
   year: z.number().int().min(1900).max(2024),
   director: z.string(),
   duration: z.number().int().positive(),
-  rate: z.number().min(0).max(10),
+  rate: z.number().min(0).max(10).default(5),
   poster: z.string().url({ message: 'Poster must invalidate URL' }),
   genre: z.array(
-    z.enum(['Action', 'Adventure', 'Comedy', 'Drama', 'Fantasy', 'Horror', 'Thiller', 'Sci-Fi']),
+    z.enum(['Action', 'Adventure', 'Comedy', 'Drama', 'Crime', 'Fantasy', 'Horror', 'Thiller', 'Sci-Fi']),
     {
       required_error: 'Movie is required'
     }
