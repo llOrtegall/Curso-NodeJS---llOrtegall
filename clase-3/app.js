@@ -19,7 +19,6 @@ app.get('/movies', (req, res) => {
   if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
     res.header('Access-Control-Allow-Origin', origin)
   }
-
   const { genre } = req.query
   if (genre) {
     const filterMovies = movies.filter(
@@ -34,7 +33,6 @@ app.get('/movies/:id', (req, res) => {
   const { id } = req.params
   const movie = movies.find(m => m.id === id)
   if (movie) return res.json(movie)
-
   res.status(404).json({
     message: 'Movie not found'
   })
@@ -42,17 +40,27 @@ app.get('/movies/:id', (req, res) => {
 
 app.post('/movies', (req, res) => {
   const result = validateMovie(req.body)
-
   if (result.error) {
     return res.status(400).json({ error: JSON.parse(result.error.message) })
   }
-
   const newMovie = {
     id: crypto.randomUUID(),
     ...result.data
   }
   movies.push(newMovie)
   res.status(201).json(newMovie)
+})
+
+app.delete('/movies/:id', (req, res) => {
+  const { id } = req.params
+  const movieIndex = movies.findIndex(movie => movie.id === id)
+
+  if (movieIndex === -1) {
+    return res.status(404).json({ message: 'Movie not found' })
+  }
+  movies.splice(movieIndex, 1)
+
+  return res.json({ message: 'Movie deleted successfully' })
 })
 
 app.patch('/movies/:id', (req, res) => {
