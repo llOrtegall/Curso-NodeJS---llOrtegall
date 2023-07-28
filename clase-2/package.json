@@ -5,7 +5,7 @@
   "main": "1.http.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon 1.http.js"
   },
   "author": "llOrTeGall",
   "license": "MIT",
