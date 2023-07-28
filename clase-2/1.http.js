@@ -1,4 +1,5 @@
 import { createServer } from 'node:http'
+import { readFile } from 'node:fs'
 
 const PORT = process.env.PORT ?? 4000
 
@@ -7,6 +8,16 @@ const processRequest = (req, res) => {
 
   if (req.url === '/') {
     res.end('<h1>Bienvenido a mi página de inicio</h1>')
+  } else if (req.url === '/imagen') {
+    readFile('/icono.png', (err, data) => {
+      if (err) {
+        res.statusCode = 500
+        res.end('<h1>Internal Server Error</h1>')
+      } else {
+        res.setHeader('Content-Type', 'image/png')
+        res.end(data)
+      }
+    })
   } else if (req.url === '/contacto') {
     res.end('Contacto')
   } else {
@@ -20,5 +31,3 @@ const server = createServer(processRequest)
 server.listen(PORT, () => {
   console.log(`server listening on port http://localhost:${PORT}`)
 })
-
-// SPA
