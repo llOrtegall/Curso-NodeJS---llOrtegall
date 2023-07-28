@@ -6,12 +6,8 @@ const processRequest = (req, res) => {
   res.setHeader('Content-Type', 'text/html ; charset=utf-8')
 
   if (req.url === '/') {
-    //* Codigo de Estado
-    res.statusCode = 200 //* OK */
-    //* Enviar Cabecera
-    res.end('Bienvenido a mi página de inicio')
+    res.end('<h1>Bienvenido a mi página de inicio</h1>')
   } else if (req.url === '/contacto') {
-    res.statusCode = 200 // **OK
     res.end('Contacto')
   } else {
     res.statusCode = 404 // **NOT FOUND **
@@ -24,3 +20,5 @@ const server = createServer(processRequest)
 server.listen(PORT, () => {
   console.log(`server listening on port http://localhost:${PORT}`)
 })
+
+// SPA
