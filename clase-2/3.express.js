@@ -25,8 +25,6 @@ app.use((req, res, next) => {
     req.body = data
     next()
   })
-
-  next()
 })
 
 app.get('/pokemon/ditto', (req, res) => {
@@ -34,16 +32,8 @@ app.get('/pokemon/ditto', (req, res) => {
 })
 
 app.post('/pokemon', (req, res) => {
-  let body = ''
-  req.on('data', chunk => {
-    body += chunk.toString()
-  })
-
-  req.on('end', () => {
-    const data = JSON.parse(body)
-    data.timestamp = Date.now()
-    res.status(201).json(data)
-  })
+  // * req.body deberíamos guardar en bd
+  res.status(201).json(req.body)
 })
 
 // TODO: en lo posible que sea la ultima linea
