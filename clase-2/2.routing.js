@@ -1,7 +1,6 @@
-import { createServer } from 'node:http'
-import { ditto } from './pokemon/ditto'
+const http = require('node:http')
 
-const dittoJSON = ditto
+const dittoJSON = require('./pokemon/ditto.json')
 
 const processRequest = (req, res) => {
   const { method, url } = req
@@ -17,15 +16,10 @@ const processRequest = (req, res) => {
           res.setHeader('content-type', 'text/html', 'charset=utf8')
           return res.end('<h1> 404 Not Found</h1>')
       }
-    case 'POST':
-      switch (url) {
-        case '/pokemon':
-          let body = ''
-      }
   }
 }
 
-const server = createServer(processRequest)
+const server = http.createServer(processRequest)
 
 server.listen(4000, () => {
   console.log('Server listening on port http://localhost:4000')

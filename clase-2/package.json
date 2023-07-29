@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "1.http.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "nodemon 1.http.js",
     "dev2": "nodemon 2.routing.js"
