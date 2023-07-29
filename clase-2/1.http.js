@@ -1,5 +1,5 @@
 import { createServer } from 'node:http'
-import { readFile } from 'node:fs'
+import fs from 'node:fs'
 
 const PORT = process.env.PORT ?? 4000
 
@@ -9,7 +9,7 @@ const processRequest = (req, res) => {
   if (req.url === '/') {
     res.end('<h1>Bienvenido a mi página de inicio</h1>')
   } else if (req.url === '/imagen') {
-    readFile('/icono.png', (err, data) => {
+    fs.readFile('./icono.png', (err, data) => {
       if (err) {
         res.statusCode = 500
         res.end('<h1>Internal Server Error</h1>')
