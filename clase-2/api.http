@@ -1,1 +1,11 @@
 GET http://localhost:4000/pokemon/ditto
+
+### 
+POST http://localhost:4000/pokemon
+Content-Type: application/json
+{
+  "pokemon": "Tiburoncin",
+  "longitude": -2.703308,
+  "city": "España",
+  "description": "Puerta del Luna"
+}

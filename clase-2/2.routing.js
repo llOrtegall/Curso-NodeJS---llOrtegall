@@ -16,6 +16,27 @@ const processRequest = (req, res) => {
           res.setHeader('content-type', 'text/html', 'charset=utf8')
           return res.end('<h1> 404 Not Found</h1>')
       }
+    case 'POST':
+      switch (url) {
+        case '/pokemon': {
+          //* escuchar el evento data
+          let body = ''
+          req.on('data', chunk => {
+            body += chunk.toString()
+          })
+
+          req.on('end', () => {
+            const data = JSON.parse(body)
+            res.writeHead(201, { 'Content-Type': 'application/json; charset=utf8' })
+            res.end(JSON.stringify(data))
+          })
+          break
+        }
+        default:
+          res.statusCode = 404
+          res.setHeader('content-type', 'text/html', 'charset=utf8')
+          return res.end('<h1> 404 Not Found</h1>')
+      }
   }
 }
 
