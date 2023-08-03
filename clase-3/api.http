@@ -5,4 +5,19 @@ GET http://localhost:1234/movies
 GET http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
 
 ### película por cabeceras
-GET http://localhost:1234/movies?genre=terror
+GET http://localhost:1234/movies?genre=Action
+
+## crear una pelicula con post
+POST http://localhost:1234/movies
+Content-Type: application/json
+{
+    "title": "Mi Pelicula con post",
+    "year": 2023,
+    "director": "Steven Spielberg",
+    "duration": 123,
+    "poster": "https://vice-press.com/cdn/shop/products/Jurassic-Park-Editions-poster-florey.jpg?v=1654518755&width=1024",
+    "genre": [
+      "Accion",
+      "Drama"
+    ],
+  }

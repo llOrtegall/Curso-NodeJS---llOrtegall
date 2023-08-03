@@ -1,12 +1,35 @@
 const express = require('express')
 const movies = require('./movies.json')
+const crypto = require('node:crypto')
 
 const app = express()
 app.disable('x-powered-by')
+app.use(express.json())
+
 
 // TODO: los recursis que sean movies se idenfica con /movies
 app.get('/movies', (req, res) => {
+  const { genre } = req.query
+  if (genre) {
+    const filterMovies = movies.filter(
+      movie => movie.genre.some(g => g.toLocaleLowerCase() === genre.toLocaleLowerCase())
+    )
+    return res.json(filterMovies)
+  }
   res.json(movies)
+})
+
+app.post('/movies', (req, res) => {
+  const { title, genre, year, director, duration, rate, poster } = req.body
+
+  const newMovie = {
+    id: crypto.randomUUID(),
+    title, genre, year, director, duration, rate: rate ?? 0, poster
+  }
+
+
+  movies.push(newMovie)
+  res.status(201).json(newMovie)
 })
 
 app.get('/movies/:id', (req, res) => {
