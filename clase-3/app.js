@@ -11,9 +11,16 @@ app.get('/movies', (req, res) => {
 
 app.get('/movies/:id', (req, res) => {
   const { id } = req.params
+  const movie = movies.find(m => m.id === id)
+  if (movie) return res.json(movie)
+
+  res.status(404).json({
+    error: 'Movie not found'
+  })
+  res
 })
 
-const PORT = process.env.PORT || 1234
+const PORT = process.env.PORT ?? 1234
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`)
