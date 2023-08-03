@@ -5,7 +5,6 @@ GET http://localhost:1234/movies
 GET http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
 
 ### película por cabeceras
-GET http://localhost:1234/movies?genre=Action
 
 ## crear una pelicula con post
 POST http://localhost:1234/movies
