@@ -2,11 +2,17 @@ const http = require('http')
 
 const PORT = process.env.PORT ?? 3200
 
-const Server = http.createServer((req, res) => {
-  console.log('request received', req.url)
-  res.end('Hola Mundo')
-})
+const processRequest = (req, res) => {
+  // console.log('request received', req.url)
+  if (req.url === '/') {
+    res.statusCode = 200 // ok
+    res.setHeader('Content-Type', 'text/plain; charset=utf8')
+    res.end('Bienvenido a mi página')
+  }
+}
 
-Server.listen(PORT, () => {
+const server = http.createServer(processRequest)
+
+server.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`)
 })
