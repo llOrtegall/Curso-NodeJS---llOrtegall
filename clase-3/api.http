@@ -1,0 +1,25 @@
+// Para Recuperar Peliculas
+GET http://localhost:3030/movies
+
+### Para recuperar una pelicula
+GET http://localhost:3030/movies/c906673b-3948-4402-ac7f-73ac3a9e3105
+
+### Para recuperar por genero
+GET http://localhost:3030/movies?genre=action
+
+### Crear una pelicula
+POST http://localhost:3030/movies
+Content-Type: application/json
+
+  {
+    "title": 1,
+    "year": "pepote",
+    "director": "James Cameron",
+    "duration": 0,
+    "poster": "https://i.pinimg.com/originals/42/42/65/4242658e6f1b0d6322a4a93e0383108b.png",
+    "genre": [
+      "Drama",
+      "Romance"
+    ],
+    "rate": 7.8
+  }
