@@ -17,10 +17,27 @@
           <h2>${m.title}</h2>
           <img src="${m.poster}" width="50" alt="${m.title}" />"
           <p>${m.year}</p>
+
+          <button>Eliminar</button>
         </article>
       `
       }).join('')
       document.querySelector('main').innerHTML = html
+
+      document.addEventListener('click', e => {
+        if (e.target.matches('button')) {
+          const article = e.target.closest('article')
+          const id = article.dataset.id
+
+          fetch(`http://localhost:3030/movies/${id}`, { method: 'DELETE' })
+            .then(res => {
+              if (res.ok) {
+                article.remove()
+              }
+            })
+            .catch(err => console.log(err))
+        }
+      })
     })
 </script>
 
