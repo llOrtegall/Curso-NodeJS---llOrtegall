@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probar Mi Api</title>
+</head>
+
+<script type="module">
+  fetch('http://localhost:3030/movies')
+    .then(res => res.json())
+    .then(movies => {
+      const html = movies.map(m => {
+        return `
+        <article data-id="${m.id}">
+          <h2>${m.title}</h2>
+          <img src="${m.poster}" width="50" alt="${m.title}" />"
+          <p>${m.year}</p>
+        </article>
+      `
+      }).join('')
+      document.querySelector('main').innerHTML = html
+    })
+</script>
+
+<body>
+  <main></main>
+</body>
+
+</html>
