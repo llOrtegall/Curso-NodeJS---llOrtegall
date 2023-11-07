@@ -1,14 +1,15 @@
-import express from 'express'
-import movies from "./movies.json" assert { type: "json" }
-import crypto from "crypto"
-import cors from "cors"
 import { validateMovie, validatePartialMovie } from './Schemas/movies.js'
+import fs from 'node:fs'
+import express, { json } from 'express'
+import crypto from 'crypto'
+import cors from 'cors'
+
+const movies = JSON.parse(fs.readFileSync('./movies.json', 'utf8'))
 
 const app = express()
 
-
 app.disable('x-powered-by')
-app.use(express.json())
+app.use(json())
 app.use(cors({
   origin: (origin, callback) => {
     const ACCEPTED_ORIGINS = [
@@ -28,8 +29,7 @@ app.use(cors({
   }
 }))
 
-
-// TODO: test 
+// TODO: test
 app.get('/', (req, res) => {
   res.json({ message: 'Hola Mundo' })
 })
@@ -80,7 +80,7 @@ app.patch('/movies/:id', (req, res) => {
   const { id } = req.params
   const movieIndex = movies.findIndex(m => m.id === id)
   if (movieIndex === -1) {
-    return res.status(404).json({ message: "Movie no found" })
+    return res.status(404).json({ message: 'Movie no found' })
   }
   const updateMovie = {
     ...movies[movieIndex],
@@ -97,11 +97,10 @@ app.delete('/movies/:id', (req, res) => {
       return res.status(404).json({ message: 'Movie not found' })
     }
     movies.splice(movieIndex, 1)
-    return res.status(204).json({ message: "Movie deleted" })
+    return res.status(204).json({ message: 'Movie deleted' })
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-
 })
 
 const PORT = process.env.PORT ?? 3030
