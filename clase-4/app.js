@@ -1,15 +1,20 @@
 import { validateMovie, validatePartialMovie } from './Schemas/movies.js'
-import fs from 'node:fs'
 import express, { json } from 'express'
 import crypto from 'crypto'
 import cors from 'cors'
 
-const movies = JSON.parse(fs.readFileSync('./movies.json', 'utf8'))
+// const movies = JSON.parse(fs.readFileSync('./movies.json', 'utf8'))
+// import fs from 'node:fs'
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
+const movies = require('./movies.json')
 
 const app = express()
 
 app.disable('x-powered-by')
+
 app.use(json())
+
 app.use(cors({
   origin: (origin, callback) => {
     const ACCEPTED_ORIGINS = [
