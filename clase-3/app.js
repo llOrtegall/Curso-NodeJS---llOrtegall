@@ -1,8 +1,8 @@
 import express from 'express'
-import movies from "./movies.json" assert { type: "json" }
+import movies from "../clase-4/movies.json" assert { type: "json" }
 import crypto from "crypto";
 import cors from "cors";
-import { validateMovie, validatePartialMovie } from './Schemas/movies.js';
+import { validateMovie, validatePartialMovie } from '../clase-4/Schemas/movies.js';
 
 const app = express()
 
