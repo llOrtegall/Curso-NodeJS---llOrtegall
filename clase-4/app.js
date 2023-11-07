@@ -5,7 +5,9 @@ import { corsMiddleware } from './middlewares/cors.js'
 const app = express()
 
 app.disable('x-powered-by')
+
 app.use(express.json())
+
 app.use(corsMiddleware())
 
 app.use('/movies', moviesRouter)
