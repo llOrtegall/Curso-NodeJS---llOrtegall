@@ -1,6 +1,0 @@
-nombre1
-nombre2
-nombre3
-Ivan
-Sebastian
-Andrea
