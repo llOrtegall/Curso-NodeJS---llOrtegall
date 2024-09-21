@@ -1,28 +1,33 @@
 import express, { Request, Response } from 'express';
-import { createServer } from 'node:http';
-import { Server } from 'socket.io';
+import { WebSocketServer } from 'ws';
 import morgan from 'morgan';
 
 const app = express();
-const server = createServer(app);
-const io = new Server(server);
+
 const port = 3000;
 
 app.use(morgan('dev'));
 
 app.get('/', (req: Request, res: Response) => {
-  res.sendFile(process.cwd() + '/client/index.html');
+  res.send('Hello World!');
 });
 
-server.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+const ws = app.listen(port, () => { console.log(`Server started on http://localhost:${port}`) });
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
+const wss = new WebSocketServer({ server: ws });
 
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
+wss.on('connection', (socket, request) => {
+
+  console.log('un cliente se ha conectado');
+
+  socket.on('message', (message: Buffer) => {
+    const msgData = JSON.parse(message.toString());
+
+    socket.send(JSON.stringify({ msgData }));
   });
 
+  socket.on('close', () => {
+    console.log('Client disconnected');
+    socket.close();
+  });
 })
