@@ -7,7 +7,7 @@ const port = 3000;
 app.use(morgan('dev'));
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('<h1>Hello World!</h1>');
+  res.sendFile(process.cwd() + '/client/index.html');
 });
 
 app.listen(port, () => {
