@@ -4,6 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat Básico</title>
+  <script type="module">
+    import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
+
+    const socket = io();
+
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if(input.value){
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    })
+  </script>
   <style>
 
     body {
@@ -55,7 +72,7 @@
 <body>
   <div class="chat">
     <div class="messages"></div>
-    <form class="input">
+    <form class="input" id="form">
       <input type="text" id="input" name="message" placeholder="Escribe un mensaje..." autocomplete="off">
       <button>Enviar</button>
     </form>
